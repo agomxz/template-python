@@ -27,8 +27,7 @@ def read_users(
 
 
 @router.post("/")
-def create_user( user_in: UserCreate,  db: Session = Depends(deps.get_db) ) -> Any:
-
+def create_user(user_in: UserCreate,  db: Session = Depends(deps.get_db)) -> Any:
     """
     Create new user.
     """
@@ -47,8 +46,6 @@ def update_user(
     """
     Update a user.
     """
-
-    print('Buscando usuario .....')
     user = CRUDuser.get(db, id=user_id)
     if not user:
         raise HTTPException(

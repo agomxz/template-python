@@ -10,9 +10,15 @@ class TeamBase(BaseModel):
 
 # Properties to receive via API on creation
 class TeamCreate(TeamBase):
-    pass
+    description: str
+    logo: str
+    #city: str
+    #country: str
+    #league: str
+    coach: str
+    president: str
 
 
 # Properties to receive via API on creation
 class TeamUpdate(TeamBase):
-    email: EmailStr
+    description: str

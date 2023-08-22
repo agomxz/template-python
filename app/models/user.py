@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, Date
 from sqlalchemy.orm import relationship
 
 #from db.base_class import Base
@@ -18,7 +18,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False)
-    
+    role_id = Column(Integer, index=True)
 
 class Role(Base):
     __tablename__ = 'role'
@@ -32,6 +32,8 @@ class Team(Base):
     __tablename__ = 'team'
     team_id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
+    foundation_date = Column(Date, index=True)
+    logo = Column(String, index=True)
 
 
 class UserTeam(Base):
