@@ -1,7 +1,5 @@
-from typing import Any, Dict, Optional, Union
-
+from typing import Any
 from sqlalchemy.orm import Session
-
 from crud.base import CRUDBase
 from models.user import Team, UserTeam
 from schemas.team import TeamBase, TeamCreate, TeamUpdate

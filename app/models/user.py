@@ -42,4 +42,21 @@ class UserTeam(Base):
     user_id = Column(Integer, index=True)
     team_id = Column(Integer, index=True)
 
+class Match(Base):
+    __tablename__ = 'match'
+    match_id = Column(Integer, primary_key=True, index=True)
+    team_local = Column(Integer, index=True)
+    team_visitor = Column(Integer, index=True)
+    date = Column(Date, index=True)
+    score_local = Column(Integer, index=True)
+    score_visitor = Column(Integer, index=True)
+    winner = Column(Integer, index=True)
+    loser = Column(Integer, index=True)
+    draw = Column(Boolean(), default=False)
+    played = Column(Boolean(), default=False)
+    tournament_id = Column(Integer, index=True)
+    stadium_id = Column(Integer, index=True)
+    referee_id = Column(Integer, index=True)
+
+
 

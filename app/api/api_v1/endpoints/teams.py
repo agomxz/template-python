@@ -1,5 +1,5 @@
-from typing import Any, List
-from fastapi import APIRouter, Body, Depends, HTTPException
+from typing import Any
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from api import deps
 from schemas import TeamBase, TeamCreate, TeamUpdate
@@ -31,8 +31,8 @@ def read_team(
     return team
 
 
-@router.put("/{team_id}", response_model=TeamBase)
-def update_user(
+@router.patch("/{team_id}", response_model=TeamBase)
+def update_team(
     *,
     db: Session = Depends(deps.get_db),
     team_id: int,
@@ -92,3 +92,21 @@ def add_player(
 
 
 
+@router.delete("/remove_player/{team_id}")
+def remove_player(
+    *,
+    db: Session = Depends(deps.get_db),
+    team_id: int,
+    player_id: int,
+) -> Any:
+    """
+    Remove a player from a team.
+    """
+    team = CRUDTeam.get(db, id=team_id)
+    if not team:
+        raise HTTPException(
+            status_code=404,
+            detail="The team with this id does not exist in the system",
+        )
+    user = CRUDTeam.remove_player(db, team_id=team_id, player_id=player_id)
+    return user

@@ -1,1 +1,1 @@
-from .user import User, Role, Team
+from .user import User, Role, Team, Match
