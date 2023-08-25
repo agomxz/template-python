@@ -23,7 +23,7 @@ def read_users(
     Retrieve users.
     """
     users = CRUDuser.get_multi(db, skip=skip, limit=limit)
-    return {'msg': 'easoooooooooooooooooooooooooooooo'}
+    return users
 
 
 @router.post("/")
@@ -54,6 +54,4 @@ def update_user(
         )
     user = CRUDuser.update(db, db_obj=user, obj_in=user_in)
     return user
-
-
 
