@@ -57,6 +57,7 @@ class Match(Base):
     tournament_id = Column(Integer, index=True)
     stadium_id = Column(Integer, index=True)
     referee_id = Column(Integer, index=True)
+    is_active = Column(Boolean(), default=True)
 
 
 
