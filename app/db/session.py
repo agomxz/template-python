@@ -1,9 +1,18 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-#from core.config import settings
+from sqlalchemy.ext.declarative import declarative_base
 
+from core.vars import vars
 
-engine = create_engine("postgresql://fl0user:qQHdaz4eLYU8@ep-shrill-waterfall-75810559.us-east-2.aws.neon.tech:5432/postgres", pool_pre_ping=True)
-
+engine = create_engine(vars.database_url, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

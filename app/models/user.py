@@ -19,10 +19,18 @@ class User(Base):
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False)
     role_id = Column(Integer, index=True)
+    created_at = Column(Date, index=True)
+    position_id = Column(Integer, index=True)
+
+class Position(Base):
+    __tablename__ = 'position'
+    position_id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    description = Column(String, index=True)
+
 
 class Role(Base):
     __tablename__ = 'role'
-
     role_id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
@@ -58,6 +66,3 @@ class Match(Base):
     stadium_id = Column(Integer, index=True)
     referee_id = Column(Integer, index=True)
     is_active = Column(Boolean(), default=True)
-
-
-
