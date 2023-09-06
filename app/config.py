@@ -1,9 +1,8 @@
-import logging
 import os
 import pathlib
 from dotenv import load_dotenv
 
-class Vars:
+class Config:
     """
     Config project class, use to load env and others configuration.
 
@@ -11,28 +10,9 @@ class Vars:
     scalade
     and debug easily
     """
-    logger = logging.getLogger()
-
     def __init__(self):
         self.load_env()
         self.load_database_config()
-
-
-    def config_logger(self):
-        logging.basicConfig(
-            format='%(asctime)s %(levelname)s %(message)s',
-            level=logging.INFO,
-            datefmt='%Y-%m-%d %H:%M:%S'
-        )
-
-        log_wp = logging.getLogger(__name__)
-        hdlr = logging.StreamHandler()
-        fhdlr = logging.FileHandler("app.log")
-        log_wp.addHandler(hdlr)
-        log_wp.addHandler(fhdlr)
-        log_wp.setLevel(logging.DEBUG)
-
-        self.logger = log_wp
 
     def load_env(self) -> None:
         try:
@@ -40,7 +20,7 @@ class Vars:
             env_path = pathlib.Path('.') / '.env'
             load_dotenv(dotenv_path=env_path)
         except Exception as e:
-            logging.warning(f"Failed to load .env file: {e}")
+            print(f"Failed to load .env file: {e}")
 
     def load_database_config(self) -> None:
         db_host = os.getenv('DB_HOST')
@@ -55,8 +35,8 @@ class Vars:
                 f'{db_host}:{db_port}/{db_name}'
             )
         else:
-            self.logger.error("Incomplete database configuration."
+            print("Incomplete database configuration."
                               "Please check environment variables.")
 
 
-vars = Vars()
+config = Config()
