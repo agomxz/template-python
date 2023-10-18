@@ -27,8 +27,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         db.commit()
         db.refresh(db_obj)
         return db_obj
-    
-    
+
 
     def update(
         self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
@@ -48,12 +47,12 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         user = self.get_by_email(db, email=email)
         if not user:
             return None
-        
+
         if not verify_password(password, user.hashed_password):
             return None
-        
+
         return user
-    
+
 
     def is_active(self, user: User) -> bool:
         return user.is_active
