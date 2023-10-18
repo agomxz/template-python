@@ -1,11 +1,10 @@
-from typing import Any, List
+from typing import Any
 
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 
 from api import deps
-from models import user
 from schemas import UserCreate, UserUpdate, User
 from crud import user as CRUDuser
 
@@ -27,13 +26,12 @@ def read_users(
 
 
 @router.post("/")
-def create_user(user_in: UserCreate,  db: Session = Depends(deps.get_db)) -> Any:
+def create_user(user_in: UserCreate, db: Session = Depends(deps.get_db)) -> Any:
     """
     Create new user.
     """
     user = CRUDuser.create(db, obj_in=user_in)
     return user
-
 
 
 @router.put("/{user_id}", response_model=User)
@@ -54,4 +52,3 @@ def update_user(
         )
     user = CRUDuser.update(db, db_obj=user, obj_in=user_in)
     return user
-
